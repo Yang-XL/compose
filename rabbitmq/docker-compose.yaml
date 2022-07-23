@@ -1,0 +1,62 @@
+#RABBITMQ_ERLANG_COOKIE 可填充 cookie
+version: "3"
+services:
+  rabitnode01:
+    image: rabbitmq:3.10.5-management
+    container_name: rabbit-node01
+    hostname: node01
+    networks:
+      - rabbit_cluster
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    volumes:
+      - rabbit_node01_data:/var/lib/rabbitmq
+      - rabbit_node01_config:/etc/rabbitmq
+      - rabbit_node01_logs:/var/log/rabbitmq  
+    environment:
+      - ERLANG-COOKIE=ACPWQONITDCYYBPNQRKP
+  rabitnode02:
+    image: rabbitmq:3.10.5-management
+    container_name: rabbit-node02
+    hostname: node02
+    networks:
+      - rabbit_cluster
+    ports:
+      - "5674:5672"
+    volumes:
+      - rabbit_node02_data:/var/lib/rabbitmq
+      - rabbit_node02_config:/etc/rabbitmq
+      - rabbit_node02_logs:/var/log/rabbitmq  
+    environment:
+      - ERLANG-COOKIE=ACPWQONITDCYYBPNQRKP
+    depends_on:
+      - rabitnode01
+  rabitnode03:
+    image: rabbitmq:3.10.5-management
+    container_name: rabbit-node03
+    hostname: node03
+    networks:
+      - rabbit_cluster
+    ports:
+      - "5673:5672"
+    volumes:
+      - rabbit_node03_data:/var/lib/rabbitmq
+      - rabbit_node03_config:/etc/rabbitmq
+      - rabbit_node03_logs:/var/log/rabbitmq  
+    environment:
+      - ERLANG-COOKIE=ACPWQONITDCYYBPNQRKP
+    depends_on:
+      - rabitnode01
+volumes:
+  rabbit_node01_data:
+  rabbit_node01_logs:
+  rabbit_node01_config:
+  rabbit_node02_data:
+  rabbit_node02_logs:
+  rabbit_node02_config:
+  rabbit_node03_data:
+  rabbit_node03_logs:
+  rabbit_node03_config:
+networks:
+  rabbit_cluster:
