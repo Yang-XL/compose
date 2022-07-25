@@ -2,7 +2,7 @@
 version: "3"
 services:
   rabitnode01:
-    image: rabbitmq:1
+    image: 499844677/rabbitmq:3.10.6-cluster
     container_name: rabbit-node01
     hostname: node01
     networks:
@@ -17,7 +17,7 @@ services:
     environment:
       - COOKIE_NAME=ACPWQONITDCYYBPNQRKP
   rabitnode02:
-    image: rabbitmq:1
+    image: 499844677/rabbitmq:3.10.6-cluster
     container_name: rabbit-node02
     hostname: node02
     networks:
@@ -34,7 +34,7 @@ services:
     depends_on:
       - rabitnode01
   rabitnode03:
-    image: rabbitmq:1
+    image: 499844677/rabbitmq:3.10.6-cluster
     container_name: rabbit-node03
     hostname: node03
     networks:

@@ -1,5 +1,4 @@
 #! /bin/bash
-
 if [ $COOKIE_NAME ]
 then
     echo "Begin Write cookie"
