@@ -1,13 +1,13 @@
 #! /bin/bash
-if [ $COOKIE_NAME ]
+if [ "$COOKIE_NAME" ]
 then
     echo "Begin Write cookie"
-    echo $COOKIE_NAME > /var/lib/rabbitmq.erlang.cookie    
+    echo "$COOKIE_NAME" > /var/lib/rabbitmq.erlang.cookie
     echo "Write Success, cookeis now is "
     cat /var/lib/rabbitmq.erlang.cookie
 fi
 
-if [ -z $MASTER_NAME ];then
+if [ -z "$MASTER_NAME" ];then
     echo "MASTER_NAME not config , will not join cluster"
     rabbitmq-server
 else
@@ -15,4 +15,3 @@ else
     rabbitmq-server & ./join.sh
     wait
 fi
-
