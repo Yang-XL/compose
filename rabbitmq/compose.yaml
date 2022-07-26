@@ -1,4 +1,3 @@
-#RABBITMQ_ERLANG_COOKIE 可填充 cookie
 version: "3"
 services:
   rabitnode01:
@@ -8,12 +7,11 @@ services:
     networks:
       - rabbit_cluster
     ports:
-      - "5672:5672"
-      - "15672:15672"
+      - "15671:15672"
     volumes:
       - rabbit_node01_data:/var/lib/rabbitmq
       - rabbit_node01_config:/etc/rabbitmq
-      - rabbit_node01_logs:/var/log/rabbitmq  
+      - rabbit_node01_logs:/var/log/rabbitmq
     environment:
       - COOKIE_NAME=ACPWQONITDCYYBPNQRKP
   rabitnode02:
@@ -23,11 +21,11 @@ services:
     networks:
       - rabbit_cluster
     ports:
-      - "5674:5672"
+      - "15672:15672"
     volumes:
       - rabbit_node02_data:/var/lib/rabbitmq
       - rabbit_node02_config:/etc/rabbitmq
-      - rabbit_node02_logs:/var/log/rabbitmq  
+      - rabbit_node02_logs:/var/log/rabbitmq
     environment:
       - COOKIE_NAME=ACPWQONITDCYYBPNQRKP
       - MASTER_NAME=rabbit@node01
@@ -40,16 +38,32 @@ services:
     networks:
       - rabbit_cluster
     ports:
-      - "5673:5672"
+      - "15673:15672"
     volumes:
       - rabbit_node03_data:/var/lib/rabbitmq
       - rabbit_node03_config:/etc/rabbitmq
-      - rabbit_node03_logs:/var/log/rabbitmq  
+      - rabbit_node03_logs:/var/log/rabbitmq
     environment:
       - COOKIE_NAME=ACPWQONITDCYYBPNQRKP
       - MASTER_NAME=rabbit@node01
     depends_on:
       - rabitnode01
+
+  haproxy:
+    image: 499844677/haproxy:2.6.2-rabbitmq
+    container_name: rabbit-cluster-ha-proxy
+    hostname: rabbit_cluster_ha
+    networks:
+      - rabbit_cluster
+    ports:
+      - "8100:8100"
+      - "5672:5672"
+    volumes:
+      - rabbit_haproxy_cfg:/usr/local/etc/haproxy
+    depends_on:
+      - rabitnode01
+      - rabitnode02
+      - rabitnode03
 volumes:
   rabbit_node01_data:
   rabbit_node01_logs:
@@ -60,5 +74,6 @@ volumes:
   rabbit_node03_data:
   rabbit_node03_logs:
   rabbit_node03_config:
+  rabbit_haproxy_cfg:
 networks:
   rabbit_cluster:
