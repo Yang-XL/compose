@@ -6,7 +6,7 @@
 
 
 1. [RabbitMq Ha cluster](rabbitmq/README.md)
+3. [Redis Cluster](redis7/README.md)
 2. [kafka cluster](待完成)
-3. [Redis 哨兵集群](待完成)
 4. [Mysql 主从复制](待完成)
 5. [Mysql 读写分离集群](待完成)

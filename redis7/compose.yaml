@@ -1,0 +1,64 @@
+version: "3"
+services:
+  redis01:
+    image: 499844677/redis:7.0.4-cluster
+    container_name: redis01
+    hostname: redis01
+    networks:
+      - redis_cluster
+    ports:
+      - "6371:6379"
+    environment:
+      - NODE_NAME=redis01
+  redis02:
+    image: 499844677/redis:7.0.4-cluster
+    container_name: redis02
+    hostname: redis02
+    networks:
+      - redis_cluster
+    ports:
+      - "6372:6379"
+    environment:
+      - NODE_NAME=redis02
+  redis03:
+    image: 499844677/redis:7.0.4-cluster
+    container_name: redis03
+    hostname: redis03
+    networks:
+      - redis_cluster
+    ports:
+      - "6373:6379"
+    environment:
+      - NODE_NAME=redis03
+  redis04:
+    image: 499844677/redis:7.0.4-cluster
+    container_name: redis04
+    hostname: redis04
+    networks:
+      - redis_cluster
+    ports:
+      - "6374:6379"
+    environment:
+      - NODE_NAME=redis04
+  redis05:
+    image: 499844677/redis:7.0.4-cluster
+    container_name: redis05
+    hostname: redis05
+    networks:
+      - redis_cluster
+    ports:
+      - "6375:6379"
+    environment:
+      - NODE_NAME=redis05
+  redis06:
+    image: 499844677/redis:7.0.4-cluster
+    container_name: redis06
+    hostname: redis06
+    networks:
+      - redis_cluster
+    ports:
+      - "6376:6379"
+    environment:
+      - NODE_NAME=redis06
+networks:
+  redis_cluster:
